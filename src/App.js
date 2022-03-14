@@ -14,6 +14,12 @@ import SyncYeoshin from "@/routes/SyncYeoshin";
 import Rank from "@/routes/Rank";
 import Community from "@/routes/Community";
 import ViewPlaceRank from "@/routes/ViewPlaceRank";
+import CommunityBoard from "@/components/Community/Board";
+import CommunityPost from "@/components/Community/Post";
+import CommunityContent from "@/components/Community/Content";
+import CommunityModify from "./components/Community/Modify";
+import CommunityMyProfile from "./components/Community/MyProfile";
+import CommunitySearch from "./components/Community/Search";
 
 export default function App(){
 
@@ -30,7 +36,11 @@ export default function App(){
         { path: '/rank', element: <Rank /> },
         { path: '/community', element: <Community /> },
         { path: '/vp-rank', element: <ViewPlaceRank /> },
-      ],
+        { path: '/community', element: <Community />, children: [
+          { path: '/community/board=:board', element: <CommunityBoard />},
+          { path: '/community/content=:contentId', element: <CommunityContent /> },
+          { path: '/community/search/criteria=:criteria&keyword=:keyword', element: <CommunitySearch /> },
+      ],}]
     },
     {
       path: '/cid=:corpId',
@@ -45,7 +55,14 @@ export default function App(){
         { path: '/cid=:corpId/corp-auth', element: <CorpAuth /> },
         { path: '/cid=:corpId/sync-ys', element: <SyncYeoshin /> },
         { path: '/cid=:corpId/rank', element: <Rank /> },
-        { path: '/cid=:corpId/community', element: <Community /> },
+        { path: '/cid=:corpId/community', element: <Community />, children: [
+          { path: '/cid=:corpId/community/board=:board', element: <CommunityBoard />},
+          { path: '/cid=:corpId/community/content=:contentId', element: <CommunityContent /> },
+          { path: '/cid=:corpId/community/post', element: <CommunityPost /> },
+          { path: '/cid=:corpId/community/my-profile/type=:type', element: <CommunityMyProfile /> },
+          { path: '/cid=:corpId/community/content-modify/contentId=:contentId', element: <CommunityModify /> },
+          { path: '/cid=:corpId/community/search/criteria=:criteria&keyword=:keyword', element: <CommunitySearch /> },
+        ] },
         { path: '/cid=:corpId/vp-rank', element: <ViewPlaceRank /> },
       ]
     },
