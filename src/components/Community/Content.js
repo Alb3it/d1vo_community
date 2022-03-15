@@ -34,7 +34,7 @@ export default function CommunityContent() {
   useEffect(()=>{
     if(token) {
       axios.get(COMMUNITY_CONTENT_DETAIL_URL + contentId+"&display="+commentN+"&page=1", { headers: { Authorization: `Token ${token}` } })
-    .then(res => {setResult(res.data);})
+    .then(res => {setResult(res.data);res.data.comments.reverse()})
     .catch(e=>setError(true));
     } else {
       axios.get(COMMUNITY_CONTENT_DETAIL_URL + contentId+"&display="+commentN+"&page=1")
@@ -133,10 +133,13 @@ export default function CommunityContent() {
           {
               result?.lastCommentPage===1 ? null : <S.PrevCommentBox onClick={_onCommentPrevClick}>이전 댓글 보기...</S.PrevCommentBox>
             }
-            {result?.comments.map((comObj, i) => (
+            { result?.lastCommentPage===1 ? 
+            result?.comments.reverse().map((comObj, i) => (
               <CommentComponent key={i} comment={comObj} index={i} contentId={contentId} aa={a} setAA={setA} />
-            ))}
-            
+            )) :
+            result?.comments.map((comObj, i) => (
+              <CommentComponent key={i} comment={comObj} index={i} contentId={contentId} aa={a} setAA={setA} />))
+          }
             {token && <S.ReplyWR>
               <S.WhiteBox>
                 <S.UpperBox>{localStorage.getItem('name')}</S.UpperBox>

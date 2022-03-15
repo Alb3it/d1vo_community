@@ -47,7 +47,7 @@ export default function CommentComponent({ comment, i, contentId, aa, setAA }) {
         <S.CommentFirst>
           <S.CommentFirstBox>
             <S.CommentWriter>{comment.writer}</S.CommentWriter>
-            <S.CommentDate>{comment.lastEdited}</S.CommentDate>
+            <S.CommentDate>{comment.lastEdited?.replaceAll('T', ' ')}</S.CommentDate>
           </S.CommentFirstBox>
           {comment.isMine ? (
             <S.CommentDelete onClick={_onCommentDeleteClick}>
