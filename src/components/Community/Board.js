@@ -18,6 +18,12 @@ export default function CommunityBoard() {
   const maxPage = Data ? Data.lastPage : 1;
 
   const navigate = useNavigate();  
+
+  useEffect(() => {
+    axios.get("https://test.divo.kr/auth/userinfo/", {headers: {"Authorization": `Token ${token}`}}).
+    then((res) => {localStorage.setItem('name', res.data.userName);localStorage.setItem('isStaff', res.data.isStaff)});
+  })
+
   useEffect(() => {
     axios.get(COMMUNITY_CONTENT_LIST_URL+board+"&display=10&page="+current)
     .then((res) => {setData(res.data);})

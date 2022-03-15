@@ -7,7 +7,7 @@ import "@pathofdev/react-tag-input/build/index.css";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { COMMUNITY_CONTENT_POST_URL, SelectStyles, HEADER, SelectOptions } from "../../utils/community_constants";
+import { COMMUNITY_CONTENT_POST_URL, SelectStyles, StaffSelectOptions, NotStaffSelectOptions } from "../../utils/community_constants";
 
 
 export default function CommunityPost(){
@@ -17,6 +17,7 @@ export default function CommunityPost(){
   const {corpId} = useParams();
   const editorRef = useRef();
   const token = localStorage.getItem('token');
+  console.log(localStorage.getItem('isStaff'));
 
   const navigate = useNavigate();
 
@@ -31,6 +32,11 @@ export default function CommunityPost(){
     }
     axios.post(COMMUNITY_CONTENT_POST_URL, body, { headers: { Authorization: `Token ${token}` } }).then((res)=>{navigate(`/cid=${corpId}/community/content=`+res.data.contentId)});
   }
+
+  const isStaffOption = () => {
+    if(localStorage.getItem('isStaff')==='true') return StaffSelectOptions;
+    else return NotStaffSelectOptions;
+  }
     
     return(
         <>
@@ -42,7 +48,7 @@ export default function CommunityPost(){
         <S.Body>
           <S.TitleBox>
             <S.TextInput placeholder="제목" value={title} onChange={(n)=>setTitle(n.target.value)} />
-            <S.Select options={SelectOptions} onChange={(props)=>setBoard(props.value)} styles={SelectStyles} placeholder="게시판을 선택해주세요"/>
+            <S.Select options={isStaffOption()} onChange={(props)=>setBoard(props.value)} styles={SelectStyles} placeholder="게시판을 선택해주세요"/>
             <S.TagBox>
               <S.ReactTagInput tags={tags} onChange={(n)=>setTags(n)} placeholder="태그를 입력해주세요"/>
             </S.TagBox>

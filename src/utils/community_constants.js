@@ -17,7 +17,14 @@ export const proList = [ "myContent", "myComment", "scrap", "liked"];
 export let token = localStorage.getItem("token");
 export const HEADER = { headers: { Authorization: `Token ${token}` } };
 
-export const SelectOptions = [
+export const NotStaffSelectOptions = [
+  { value: 'information', label: '정보' },
+  { value: 'qna', label: '질문' },
+  { value: 'general', label: '자유' },
+  { value: 'bug', label: '오류' },
+];
+
+export const StaffSelectOptions = [
   { value: 'information', label: '정보' },
   { value: 'qna', label: '질문' },
   { value: 'general', label: '자유' },

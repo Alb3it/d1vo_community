@@ -8,7 +8,7 @@ import ReactTagInput from "@pathofdev/react-tag-input";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { CategoryK } from "../../utils/community_function";
-import { SelectOptions, SelectStyles, COMMUNITY_CONTENT_MODIFY_URL, HEADER } from "../../utils/community_constants";
+import { StaffSelectOptions, SelectStyles, NotStaffSelectOptions, COMMUNITY_CONTENT_MODIFY_URL, HEADER } from "../../utils/community_constants";
 
 export default function CommunityModify() {
   const { corpId, contentId } = useParams();
@@ -46,7 +46,7 @@ export default function CommunityModify() {
             <S.TextInput placeholder="제목" value={title} onChange={(n) => setTitle(n.target.value)} />
             <S.Select
               defaultValue={{ value: state.category, label: CategoryK(state.category) }}
-              options={SelectOptions}
+              options={localStorage.getItem('isStaff') ? StaffSelectOptions : NotStaffSelectOptions}
               onChange={(props) => setBoard(props.value)}
               styles={SelectStyles}
               placeholder="게시판을 선택해주세요"

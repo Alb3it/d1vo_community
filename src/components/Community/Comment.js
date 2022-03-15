@@ -77,7 +77,7 @@ export default function CommentComponent({ comment, i, contentId, aa, setAA }) {
       {writeReply ? (
         <S.Replywrite>
           <S.WhiteBoxwrite>
-            <S.UpperBoxwrite>이미자는중</S.UpperBoxwrite>
+            <S.UpperBoxwrite>{localStorage.getItem('name')}</S.UpperBoxwrite>
             <S.Textareawrite value={text} onChange={(props) => setText(props.target.value)} placeholder="답글을 입력하세요" />
             <S.BottomBoxwrite>
               <S.Buttonwrite onClick={_onReplyPostClick}>등록</S.Buttonwrite>

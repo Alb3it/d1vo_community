@@ -37,7 +37,7 @@ export default function CommunityContent() {
     .then(res => {setResult(res.data);})
     .catch(e=>setError(true));
     } else {
-      axios.get(COMMUNITY_CONTENT_DETAIL_URL + contentId)
+      axios.get(COMMUNITY_CONTENT_DETAIL_URL + contentId+"&display="+commentN+"&page=1")
     .then(res => {setResult(res.data);console.log(res.data)})
     .catch(e=>setError(true));
     }
@@ -139,7 +139,7 @@ export default function CommunityContent() {
             
             {token && <S.ReplyWR>
               <S.WhiteBox>
-                <S.UpperBox>이미자는중</S.UpperBox>
+                <S.UpperBox>{localStorage.getItem('name')}</S.UpperBox>
                 <S.Textarea
                   value={text}
                   onChange={(props) => {
